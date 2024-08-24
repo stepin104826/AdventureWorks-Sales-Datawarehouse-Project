@@ -1,0 +1,93 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/24/2024 3:41:02 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="SRIKARREDDY"
+  DTS:CreatorName="SRIKARREDDY\Srikar Reddy"
+  DTS:DTSID="{68625DB6-ABE5-4E7B-85BD-98C80D6DCDFF}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5556.0"
+  DTS:LocaleID="16393"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{868E38AF-EFE3-4E07-B93B-B89438DDE608}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SRIKARREDDY\SRIKARREDDY.AdventureWorks_DW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{A42BF0B1-0A5D-4B55-82C6-C24A38385F17}"
+      DTS:ObjectName="SRIKARREDDY\SRIKARREDDY.AdventureWorks_DW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=SRIKARREDDY\SRIKARREDDY;Initial Catalog=AdventureWorks_DW;Provider=SQLOLEDB.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{A42BF0B1-0A5D-4B55-82C6-C24A38385F17}SRIKARREDDY\SRIKARREDDY.AdventureWorks_DW;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load Currency Dimension"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{F496AC71-D03E-4D3C-9EAD-1E2FC662C07E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Currency Dimension"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A42BF0B1-0A5D-4B55-82C6-C24A38385F17}"
+          SQLTask:SqlStatementSource="USE [AdventureWorks_DW]&#xA;Drop Procedure IF EXISTS [dbo].[Refresh_DimCurrency]&#xA;GO&#xA;&#xA;&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;&#xA;&#xA;Create Procedure [dbo].[Refresh_DimCurrency]&#xA;&#xA;as&#xA;begin&#xA;&#xA;&#xA;set nocount on &#xA;Insert into [dbo].[DimCurrency]&#xA;&#xA;(&#xA;[CurrencyAlternateKey]&#xA;,[CurrencyName]&#xA;)&#xA;&#xA;&#xA;SELECT [CurrencyCode]&#xA;      ,[Name]    &#xA;  FROM [AdventureWorks_Staging_DB].[erp].[Currency] stg (nolock)&#xA;    left join [dbo].[DimCurrency] Dim  (nolock)&#xA;  on stg.CurrencyCode = Dim.CurrencyAlternateKey&#xA;    where Dim.CurrencyAlternateKey is null&#xA;&#xA;&#xA;  Update Dim&#xA;&#xA;  Set [CurrencyName] = Name&#xA;  from [dbo].[DimCurrency] Dim  (nolock)&#xA;  inner join [AdventureWorks_Staging_DB].[erp].[Currency] stg  (nolock)&#xA;  on stg.CurrencyCode = Dim.CurrencyAlternateKey&#xA;&#xA;&#xA;   set nocount off&#xA;&#xA;&#xA;end &#xA;&#xA;GO&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Customer Dimension"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{5587fcf1-dfdb-4ae4-b5fa-116ebdfc9370}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Customer Dimension"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{A42BF0B1-0A5D-4B55-82C6-C24A38385F17}"
+          SQLTask:SqlStatementSource="USE [AdventureWorks_DW]&#xA;Drop Procedure IF EXISTS [dbo].[Refresh_DimCustomer]&#xA;GO&#xA;&#xA;/****** Object:  StoredProcedure [dbo].[Refresh_DimCustomer]    Script Date: 24-08-2024 15:45:46 ******/&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;&#xA;&#xA;&#xA;Create Procedure [dbo].[Refresh_DimCustomer]&#xA;&#xA;as&#xA;begin&#xA;&#xA;&#xA;set nocount on &#xA;&#xA;&#xA;Merge into [dbo].[DimCustomer] cus&#xA;using [AdventureWorks_Staging_DB].[dbo].[Stg_vw_Erp_Customer] stg&#xA;on cus.[CustomerAlternateKey] = stg.CustomerID&#xA;&#xA;when Matched and  ( cus.EmailAddress &lt;&gt; stg.[EmailPromotion] or  cus.[AddressLine1] &lt;&gt; stg.[AddressLine1] or cus.AddressLine2 &lt;&gt; stg.City) &#xA;then&#xA;&#xA;update set cus.EmailAddress =stg.[EmailPromotion] ,&#xA;&#x9;       cus.[AddressLine1] = stg.[AddressLine1] ,&#xA;           cus.AddressLine2 =  stg.City&#xA;&#xA;&#xA;when Not Matched by Target then &#xA;&#xA;insert   ( &#xA;       [CustomerAlternateKey]      ,[Title]      ,[FirstName]           ,[LastName]&#xA;      ,[NameStyle]&#xA;     , EmailAddress&#xA;&#x9; ,[AddressLine1]&#xA;&#x9; ,AddressLine2&#xA;&#x9; )&#xA; Values(stg.CustomerID,&#xA;        stg.[Title],&#x9;&#x9;stg.[FirstName],&#x9;&#x9;stg.[LastName],&#xA;&#x9;&#x9;stg.[NameStyle],&#xA;&#x9;&#x9;stg.[EmailPromotion],&#xA;&#x9;&#x9;stg.[AddressLine1],&#xA;&#x9;&#x9;stg.City)&#xA;        &#xA;   ;&#xA;&#xA;&#xA;   &#xA;set nocount off &#xA;end &#xA;&#xA;GO&#xA;&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="198.4,41.6"
+          Id="Package\Load Currency Dimension"
+          TopLeft="155.000000329955,61.1764705346118" />
+        <NodeLayout
+          Size="201.6,41.6"
+          Id="Package\Load Customer Dimension"
+          TopLeft="150.714286035117,126.941176359319" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

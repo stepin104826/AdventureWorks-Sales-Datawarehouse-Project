@@ -1,0 +1,8 @@
+D:\AdventureWorks Data Warehousing Project\SSAS Model\AdvWorks_Model\bin\Model.asdatabase
+D:\AdventureWorks Data Warehousing Project\SSAS Model\AdvWorks_Model\bin\Model.deploymenttargets
+D:\AdventureWorks Data Warehousing Project\SSAS Model\AdvWorks_Model\bin\Model.deploymentoptions
+D:\AdventureWorks Data Warehousing Project\SSAS Model\AdvWorks_Model\obj\Development\AdvWorks_Model.smproj.AssemblyReference.cache
+D:\AdventureWorks Data Warehousing Project\SSAS Model\AdvWorks_Model\obj\Development\AdvWorks_Model.smproj.CoreCompileInputs.cache
+D:\AdventureWorks Data Warehousing Project\SSAS Model\AdvWorks_Model\obj\Development\Model.asdatabase
+D:\AdventureWorks Data Warehousing Project\SSAS Model\AdvWorks_Model\obj\Development\Model.deploymentoptions
+D:\AdventureWorks Data Warehousing Project\SSAS Model\AdvWorks_Model\obj\Development\Model.deploymenttargets
