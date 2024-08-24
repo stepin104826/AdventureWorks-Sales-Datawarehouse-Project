@@ -14,7 +14,7 @@ The goal of this project was to create a comprehensive data warehousing solution
 ## Setup and Installation
 
 1. **Install SQL Server and SSMS**: Ensure you have SQL Server and SQL Server Management Studio installed on your machine.
-2. **Install SSIS and SSAS**: Add SQL Server Integration Services and SQL Server Analysis Services to your SQL Server installation.
+2. **Install SSIS and SSAS**: Add SQL Server Integration Services and SQL Server Analysis Services to your SQL Server installation. Create and deploy SSAS tabular model to the SSAS server.
 3. **Power BI Desktop**: Download and install Power BI Desktop from the official Microsoft website.
 4. **Clone the Repository**: Clone this GitHub repository to your local machine using:
     ```bash
