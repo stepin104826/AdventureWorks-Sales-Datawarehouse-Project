@@ -1,5 +1,7 @@
 # AdventureWorks ETL Data Warehousing Solution
 
+<img src="ProjectLogo.png" alt="Your Logo" height="100" width="300" />  
+
 ## Project Overview
 
 The goal of this project was to create a comprehensive data warehousing solution for AdventureWorks Database, focusing on the company's bike sales data. By extracting, transforming, and loading the data into a centralized SQL Server Management Studio (SSMS) data warehouse, we enable in-depth analysis and visualization of sales trends and performance metrics using SSAS and Power BI.
